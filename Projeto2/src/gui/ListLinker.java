@@ -85,8 +85,6 @@ public class ListLinker extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    
-  //teste
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
