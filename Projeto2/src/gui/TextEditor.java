@@ -5,17 +5,25 @@
  */
 package gui;
 
+import java.awt.Color;
+import static javafx.beans.binding.Bindings.length;
+import javax.swing.*;
+import javax.swing.text.*;
+
 /**
  *
  * @author Lucas
  */
 public class TextEditor extends javax.swing.JFrame {
 
+    private Object doc;
+
     /**
      * Creates new form TextEditor
      */
     public TextEditor() {
         initComponents();
+        Highlighter h;
     }
 
     /**
@@ -33,6 +41,7 @@ public class TextEditor extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -46,10 +55,22 @@ public class TextEditor extends javax.swing.JFrame {
         });
 
         jButton2.setText("Caso de Uso");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Gerar Diagrama");
 
         jButton4.setText("Gerar Prototipo");
+
+        jButton5.setText("Borracha");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -58,17 +79,20 @@ public class TextEditor extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1)
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton4)
-                        .addGap(0, 2, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addGap(0, 30, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -77,9 +101,10 @@ public class TextEditor extends javax.swing.JFrame {
                     .addComponent(jButton1)
                     .addComponent(jButton2)
                     .addComponent(jButton3)
-                    .addComponent(jButton4))
-                .addGap(14, 14, 14)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
+                    .addComponent(jButton4)
+                    .addComponent(jButton5))
+                .addGap(17, 17, 17)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -87,8 +112,58 @@ public class TextEditor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        DefaultHighlighter.DefaultHighlightPainter highlightPainter
+                = new DefaultHighlighter.DefaultHighlightPainter(Color.YELLOW);
+        try {
+            jTextPane1.getHighlighter().addHighlight(jTextPane1.getSelectionStart(), jTextPane1.getSelectionEnd(), new MyHighlightPainter(Color.red));
+        } catch (BadLocationException e) {
+
+        }
+
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        DefaultHighlighter.DefaultHighlightPainter highlightPainter
+                = new DefaultHighlighter.DefaultHighlightPainter(Color.YELLOW);
+        try {
+            jTextPane1.getHighlighter().addHighlight(jTextPane1.getSelectionStart(), jTextPane1.getSelectionEnd(), new MyHighlightPainter(Color.yellow));
+        } catch (BadLocationException e) {
+
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        int begin = jTextPane1.getSelectionStart();
+        int end = jTextPane1.getSelectionEnd();
+        Highlighter hilite = jTextPane1.getHighlighter();
+
+        Highlighter.Highlight[] hilites = hilite.getHighlights();
+
+        for (int i = 0; i < hilites.length; i++) {
+            
+            int e1 = hilites[i].getEndOffset();
+            int b1 = hilites[i].getStartOffset();
+            if (begin == b1 && end == e1) {
+
+                if (hilites[i].getPainter() instanceof MyHighlightPainter) {
+
+                    hilite.removeHighlight(hilites[i]);
+                }
+            }
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
+        
+    
+
+    public void removeHighlights(JTextComponent textComp) {
+        Highlighter hilite = textComp.getHighlighter();
+        Highlighter.Highlight[] hilites = hilite.getHighlights();
+        for (int i = 0; i < hilites.length; i++) {
+            if (hilites[i].getPainter() instanceof MyHighlightPainter) {
+                hilite.removeHighlight(hilites[i]);
+            }
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -130,7 +205,15 @@ public class TextEditor extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextPane jTextPane1;
     // End of variables declaration//GEN-END:variables
+}
+
+class MyHighlightPainter extends DefaultHighlighter.DefaultHighlightPainter {
+
+    public MyHighlightPainter(Color color) {
+        super(color);
+    }
 }
