@@ -23,7 +23,6 @@ public class TextEditor extends javax.swing.JFrame {
      */
     public TextEditor() {
         initComponents();
-        Highlighter h;
     }
 
     /**
