@@ -6,9 +6,13 @@
 package gui;
 
 import java.awt.Color;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import static javafx.beans.binding.Bindings.length;
 import javax.swing.*;
 import javax.swing.text.*;
+import objetos.*;
+import modelagem.*;
 
 /**
  *
@@ -16,13 +20,18 @@ import javax.swing.text.*;
  */
 public class TextEditor extends javax.swing.JFrame {
 
+    MyHighlightPainter m1 = new MyHighlightPainter(Color.green);
+    MyHighlightPainter m2 = new MyHighlightPainter(Color.cyan);
+    Modelo modelo;
     private Object doc;
 
     /**
      * Creates new form TextEditor
      */
     public TextEditor() {
+        modelo = new Modelo();
         initComponents();
+
     }
 
     /**
@@ -61,6 +70,11 @@ public class TextEditor extends javax.swing.JFrame {
         });
 
         jButton3.setText("Gerar Diagrama");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Gerar Prototipo");
 
@@ -111,10 +125,9 @@ public class TextEditor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        DefaultHighlighter.DefaultHighlightPainter highlightPainter
-                = new DefaultHighlighter.DefaultHighlightPainter(Color.YELLOW);
+
         try {
-            jTextPane1.getHighlighter().addHighlight(jTextPane1.getSelectionStart(), jTextPane1.getSelectionEnd(), new MyHighlightPainter(Color.red));
+            jTextPane1.getHighlighter().addHighlight(jTextPane1.getSelectionStart(), jTextPane1.getSelectionEnd(), m1);
         } catch (BadLocationException e) {
 
         }
@@ -122,10 +135,9 @@ public class TextEditor extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        DefaultHighlighter.DefaultHighlightPainter highlightPainter
-                = new DefaultHighlighter.DefaultHighlightPainter(Color.YELLOW);
+
         try {
-            jTextPane1.getHighlighter().addHighlight(jTextPane1.getSelectionStart(), jTextPane1.getSelectionEnd(), new MyHighlightPainter(Color.yellow));
+            jTextPane1.getHighlighter().addHighlight(jTextPane1.getSelectionStart(), jTextPane1.getSelectionEnd(), m2);
         } catch (BadLocationException e) {
 
         }
@@ -139,9 +151,11 @@ public class TextEditor extends javax.swing.JFrame {
         Highlighter.Highlight[] hilites = hilite.getHighlights();
 
         for (int i = 0; i < hilites.length; i++) {
-            
+
             int e1 = hilites[i].getEndOffset();
+
             int b1 = hilites[i].getStartOffset();
+
             if (begin == b1 && end == e1) {
 
                 if (hilites[i].getPainter() instanceof MyHighlightPainter) {
@@ -151,8 +165,44 @@ public class TextEditor extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jButton5ActionPerformed
-        
-    
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        int begin = jTextPane1.getSelectionStart();
+        int end = jTextPane1.getSelectionEnd();
+        Highlighter hilite = jTextPane1.getHighlighter();
+
+        Highlighter.Highlight[] hilites = hilite.getHighlights();
+
+        for (int i = 0; i < hilites.length; i++) {
+
+            int e1 = hilites[i].getEndOffset();
+            int b1 = hilites[i].getStartOffset();
+
+            MyHighlightPainter myHighlightPainter = (MyHighlightPainter) hilites[i].getPainter();
+            Color c = myHighlightPainter.getColor();
+            String sub = "";
+            if (c.toString().equals(m1.getColor().toString())) {
+
+                try {
+                    sub = jTextPane1.getText(b1, (e1 - b1));
+                    Actor ac = new Actor(sub);
+                    modelo.addActor(ac);
+                } catch (BadLocationException ex) {
+                    Logger.getLogger(TextEditor.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            } else {
+                try {
+                    sub = jTextPane1.getText(b1, (e1 - b1));
+                    UserCase uc = new UserCase(sub);
+                    modelo.addUC(uc);
+                } catch (BadLocationException ex) {
+                    Logger.getLogger(TextEditor.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     public void removeHighlights(JTextComponent textComp) {
         Highlighter hilite = textComp.getHighlighter();
@@ -212,7 +262,15 @@ public class TextEditor extends javax.swing.JFrame {
 
 class MyHighlightPainter extends DefaultHighlighter.DefaultHighlightPainter {
 
+    Color color;
+
     public MyHighlightPainter(Color color) {
+
         super(color);
+        this.color = color;
+    }
+
+    public Color getColor() {
+        return color;
     }
 }
