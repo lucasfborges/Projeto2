@@ -1,4 +1,4 @@
-package objetos;
+package entidade;
 
 public abstract class ActorUser {
 	ActorUser()

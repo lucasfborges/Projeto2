@@ -4,8 +4,9 @@
  * and open the template in the editor.
  */
 package gui;
-import modelagem.*;
-import objetos.*;
+
+import entidade.Modelo;
+
 /**
  *
  * @author Lucas
@@ -16,10 +17,12 @@ public class ListLinker extends javax.swing.JFrame {
      * Creates new form ListLinker
      */
     Modelo modelo;
+
     public ListLinker(Modelo modelo) {
-        this.modelo=modelo;
+        this.modelo = modelo;
         initComponents();
         setVisible(true);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -89,7 +92,6 @@ public class ListLinker extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    
   //teste
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
