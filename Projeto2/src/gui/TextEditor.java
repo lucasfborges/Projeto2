@@ -202,6 +202,7 @@ public class TextEditor extends javax.swing.JFrame {
             }
 
         }
+        new ListLinker(modelo);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     public void removeHighlights(JTextComponent textComp) {
