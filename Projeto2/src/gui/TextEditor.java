@@ -10,6 +10,7 @@ import entidade.Actor;
 import entidade.UserCase;
 import entidade.Modelo;
 import java.awt.Color;
+import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
@@ -245,7 +246,11 @@ public class TextEditor extends javax.swing.JFrame {
 
     private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
         resetar();
-        modelo=Abrir.abrir(new JFileChooser().getSelectedFile());
+        try {
+            modelo=Abrir.abrir(new JFileChooser().getSelectedFile());
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(TextEditor.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }//GEN-LAST:event_jMenu1ActionPerformed
 
