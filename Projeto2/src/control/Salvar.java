@@ -17,20 +17,21 @@ import java.io.PrintWriter;
  * @author Lucas
  */
 public class Salvar {
-    public static int salvar(Modelo model, File caminho) throws FileNotFoundException
-    {
+    
+    static int SUCESSO = 1;
+    static int ERRO = 0;
+    public static int salvar(Modelo model, File caminho){
         //Incluir uma instancia para o Xstream
         XStream xstream = new XStream(new DomDriver());        
         String xml1 = xstream.toXML(model);        
         
-        //Conferir no terminal o xml gerado
-        System.out.println(xml1);
-        
         //Salvar o modelo no formato xml
-        try (PrintWriter writer = new PrintWriter("arquivo.xml")) {
+        try (PrintWriter writer = new PrintWriter(caminho.getAbsolutePath())) {
             writer.println(xml1);
             writer.close();
+            return SUCESSO;
+        } catch (FileNotFoundException e){
+            return ERRO;
         }
-        return 0;
     }
 }
