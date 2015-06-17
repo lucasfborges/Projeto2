@@ -6,6 +6,7 @@
 package gui;
 
 import control.Abrir;
+import control.Salvar;
 import entidade.Actor;
 import entidade.UserCase;
 import entidade.Modelo;
@@ -335,8 +336,18 @@ public class TextEditor extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here: 
-        String texto = jTextPane1.getText();
+        // TODO add your handling code here:
+        
+        File JFileChooser = null;
+        File arquivo = JFileChooser;
+        if (Salvar.salvar(modelo, JFileChooser) == Salvar.SUCESSO)
+        {
+            JOptionPane.showMessageDialog(null,"SUCESSO");
+        }else
+        {
+            JOptionPane.showMessageDialog(null,"ERRO");
+        }
+       /** String texto = jTextPane1.getText();
 
         Highlighter hilite = jTextPane1.getHighlighter();
         Highlighter.Highlight[] hilites = hilite.getHighlights();
@@ -386,7 +397,7 @@ public class TextEditor extends javax.swing.JFrame {
         System.out.print(inicioHighLight);
         System.out.print("\n" + fimHighLight);
 
-        System.out.println(texto);
+        System.out.println(texto);*/
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
