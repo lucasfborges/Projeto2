@@ -12,10 +12,12 @@ import java.io.File;
  *
  * @author Lucas
  */
-public class Gerador {
+public interface Gerador {
 
-    public static int gerarHtml(Modelo model, File caminho) {
-        return 0;
+    public static int SUCESSO = 1;
+    public static int ERRO = 0;
+
+    static int gerar(Modelo model, File caminho) {
+        return Gerador.ERRO;
     }
-
 }

@@ -4,8 +4,9 @@
  * and open the template in the editor.
  */
 package main;
-import gui.*;
-
+import control.GeradorHTML;
+import java.io.File;
+import entidade.Modelo;
 /**
  *
  * @author Lucas
@@ -15,6 +16,10 @@ public class Main
 
     public static void main(String args[]) {
 
-                new TextEditor().setVisible(true);
+     //           new TextEditor().setVisible(true);
+        Modelo modelo = new Modelo();
+        modelo.setName("mey prodeto");
+        modelo.setText("Tralalalala");
+        GeradorHTML.gerar(modelo, new File("/home/fls/teste.html"));
     }
 }

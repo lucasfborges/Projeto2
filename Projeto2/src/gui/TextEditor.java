@@ -340,6 +340,7 @@ public class TextEditor extends javax.swing.JFrame {
         
         File JFileChooser = null;
         File arquivo = JFileChooser;
+        /*
         if (Salvar.salvar(modelo, JFileChooser) == Salvar.SUCESSO)
         {
             JOptionPane.showMessageDialog(null,"SUCESSO");
@@ -347,6 +348,7 @@ public class TextEditor extends javax.swing.JFrame {
         {
             JOptionPane.showMessageDialog(null,"ERRO");
         }
+        */
        /** String texto = jTextPane1.getText();
 
         Highlighter hilite = jTextPane1.getHighlighter();
