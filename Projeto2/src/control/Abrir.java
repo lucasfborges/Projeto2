@@ -16,12 +16,22 @@ import entidade.Modelo;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 public class Abrir {
-    public static Modelo abrir(File arquivo) throws FileNotFoundException
-    {
-        XStream xstream = new XStream(new DomDriver()); 
-        String content = new Scanner(new File("arquivo.xml")).useDelimiter("\\Z").next();
-        Modelo modeloArquivo = (Modelo)xstream.fromXML(content);
-        System.out.println(content);
-        return  modeloArquivo;
+    
+    public static int SUCESSO = 1;
+    public static int ERRO = 0;
+    
+    public static int abrir(File arquivo, Modelo modelo)   {
+        try{
+            XStream xstream = new XStream(new DomDriver()); 
+            String content = new Scanner(arquivo).useDelimiter("\\Z").next();
+            modelo = (Modelo)xstream.fromXML(content);
+            return  SUCESSO;
+        }
+        catch(FileNotFoundException e)
+        {
+            return ERRO;
+        }
+        
+        
     }
 }
