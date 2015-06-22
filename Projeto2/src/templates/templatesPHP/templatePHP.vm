@@ -1,0 +1,8 @@
+<html>
+ <head>
+  <title> $model.getName() </title>
+ </head>
+ <body>
+ <?php echo "<p>$model.getText()</p>"; ?>
+ </body>
+</html>
