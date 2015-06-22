@@ -5,6 +5,7 @@
  */
 package main;
 import control.GeradorHTML;
+import control.GeradorPHP;
 import java.io.File;
 import entidade.Modelo;
 /**
@@ -20,6 +21,7 @@ public class Main
         Modelo modelo = new Modelo();
         modelo.setName("mey prodeto");
         modelo.setText("Tralalalala");
-        GeradorHTML.gerar(modelo, new File("/home/fls/teste.html"));
+        GeradorHTML.gerar(modelo, new File("/Users/Lucas/Documents/GitHub/Projeto2/Projeto2/src/templates/teste.html"));
+        GeradorPHP.gerar(modelo, new File("/Users/Lucas/Documents/GitHub/Projeto2/Projeto2/src/templates/templatesPHP/geradorPHP.php"));
     }
 }
