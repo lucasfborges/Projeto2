@@ -17,19 +17,15 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 public class Abrir {
     
-    public static int SUCESSO = 1;
-    public static int ERRO = 0;
-    
-    public static int abrir(File arquivo, Modelo modelo)   {
+    public static Modelo abrir(File arquivo)   {
         try{
             XStream xstream = new XStream(new DomDriver()); 
             String content = new Scanner(arquivo).useDelimiter("\\Z").next();
-            modelo = (Modelo)xstream.fromXML(content);
-            return  SUCESSO;
+            return  (Modelo)xstream.fromXML(content);
         }
         catch(FileNotFoundException e)
         {
-            return ERRO;
+            return null;
         }
         
         

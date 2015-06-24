@@ -28,7 +28,7 @@ public class GeradorHTML implements Gerador{
 
     public static int gerar(Modelo model, File caminho) {
         Properties p = new Properties();
-        p.setProperty("file.resource.loader.path", "/home/fls/repositorio/Projeto2/Projeto2/src/templates/");
+        p.setProperty("file.resource.loader.path", new File("").getAbsolutePath() + "/src/templates/");
         Velocity.init(p);
 
         VelocityContext context = new VelocityContext();

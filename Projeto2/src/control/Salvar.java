@@ -18,8 +18,8 @@ import java.io.PrintWriter;
  */
 public class Salvar {
     
-    static int SUCESSO = 1;
-    static int ERRO = 0;
+    public static int SUCESSO = 1;
+    public static int ERRO = 0;
     public static int salvar(Modelo model, File caminho){
         //Incluir uma instancia para o Xstream
         XStream xstream = new XStream(new DomDriver());        

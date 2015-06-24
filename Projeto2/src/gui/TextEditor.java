@@ -11,15 +11,7 @@ import entidade.Actor;
 import entidade.UserCase;
 import entidade.Modelo;
 import java.awt.Color;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
@@ -58,11 +50,8 @@ public class TextEditor extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTree1 = new javax.swing.JTree();
         jButton6 = new javax.swing.JButton();
@@ -81,20 +70,6 @@ public class TextEditor extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(jTextPane1);
 
-        jButton1.setText("Ator");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jButton2.setText("Caso de Uso");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
         jButton3.setText("Gerar Diagrama");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -103,13 +78,6 @@ public class TextEditor extends javax.swing.JFrame {
         });
 
         jButton4.setText("Gerar Prototipo");
-
-        jButton5.setText("Borracha");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Projeto");
         jTree1.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
@@ -141,11 +109,6 @@ public class TextEditor extends javax.swing.JFrame {
         jLabel1.setText("Árvore do Projeto");
 
         jMenu1.setText("Arquivo");
-        jMenu1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu1ActionPerformed(evt);
-            }
-        });
 
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem1.setText("Abrir...");
@@ -188,15 +151,9 @@ public class TextEditor extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton5)
-                        .addGap(2, 2, 2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jButton3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton4)))
@@ -220,9 +177,6 @@ public class TextEditor extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1)
-                            .addComponent(jButton2)
-                            .addComponent(jButton5)
                             .addComponent(jButton3)
                             .addComponent(jButton4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -244,48 +198,6 @@ public class TextEditor extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-        try {
-            jTextPane1.getHighlighter().addHighlight(jTextPane1.getSelectionStart(), jTextPane1.getSelectionEnd(), m1);
-        } catch (BadLocationException e) {
-
-        }
-
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-
-        try {
-            jTextPane1.getHighlighter().addHighlight(jTextPane1.getSelectionStart(), jTextPane1.getSelectionEnd(), m2);
-        } catch (BadLocationException e) {
-
-        }
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        int begin = jTextPane1.getSelectionStart();
-        int end = jTextPane1.getSelectionEnd();
-        Highlighter hilite = jTextPane1.getHighlighter();
-
-        Highlighter.Highlight[] hilites = hilite.getHighlights();
-
-        for (int i = 0; i < hilites.length; i++) {
-
-            int e1 = hilites[i].getEndOffset();
-
-            int b1 = hilites[i].getStartOffset();
-
-            if (begin == b1 && end == e1) {
-
-                if (hilites[i].getPainter() instanceof MyHighlightPainter) {
-
-                    hilite.removeHighlight(hilites[i]);
-                }
-            }
-        }
-    }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         int begin = jTextPane1.getSelectionStart();
@@ -325,127 +237,125 @@ public class TextEditor extends javax.swing.JFrame {
         new ListLinker(modelo);
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
-        resetar();
-        try {
-            modelo = Abrir.abrir(new JFileChooser().getSelectedFile());
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(TextEditor.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }//GEN-LAST:event_jMenu1ActionPerformed
-
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
-        
-        File JFileChooser = null;
-        File arquivo = JFileChooser;
-        /*
-        if (Salvar.salvar(modelo, JFileChooser) == Salvar.SUCESSO)
-        {
-            JOptionPane.showMessageDialog(null,"SUCESSO");
-        }else
-        {
-            JOptionPane.showMessageDialog(null,"ERRO");
-        }
-        */
-       /** String texto = jTextPane1.getText();
+        modelo.setText(jTextPane1.getText());
+        JFileChooser selecionador = new JFileChooser();
+        selecionador.showSaveDialog(this);
+        File arquivo = selecionador.getSelectedFile();
 
-        Highlighter hilite = jTextPane1.getHighlighter();
-        Highlighter.Highlight[] hilites = hilite.getHighlights();
-
-        int i = 0;
-        //int numCor = 0;
-        List<Integer> inicioHighLight = new ArrayList<>();
-        List<Integer> fimHighLight = new ArrayList<>();
-        List<Integer> corHighLight = new ArrayList<>(); //0 = ator 1 = user case
-
-        try {
-            while (true) {
-                MyHighlightPainter myHighlightPainter = (MyHighlightPainter) hilites[i].getPainter();
-                Color c = myHighlightPainter.getColor();
-
-                if (c.toString().equals(m1.getColor().toString())) {
-                    corHighLight.add(0);
-                } else if (c.toString().equals(m2.getColor().toString())) {
-                    corHighLight.add(1);
-                }
-                inicioHighLight.add(hilites[i].getStartOffset());
-                fimHighLight.add(hilites[i].getEndOffset());
-                i = i + 1;
-            }
-        } catch (Exception e) {
-            //Nada a fazer.
+        if (Salvar.salvar(modelo, arquivo) == Salvar.SUCESSO) {
+            JOptionPane.showMessageDialog(null, "SUCESSO");
+        } else {
+            JOptionPane.showMessageDialog(null, "ERRO");
         }
 
-        File arquivo = new File("PosicaoHighLight.txt");
-        try (FileWriter fw = new FileWriter(arquivo)) {
-
-            for (int j = 0; j < i; j++) {
-                //System.out.println("Cor = " + corHighLight.get(j) + " Lenght = " + inicioHighLight.get(j) + " -> " + fimHighLight.get(j));
-                fw.write(corHighLight.get(j) + " " + inicioHighLight.get(j) + " " + fimHighLight.get(j) + "\n");
-            }
-            fw.close();
-        } catch (IOException ex) {
-        }
-
-        File arquivo2 = new File("Texto.txt");
-        try (FileWriter fw2 = new FileWriter(arquivo2)) {
-            fw2.write(texto);
-            fw2.close();
-        } catch (IOException ex) {
-        }
-
-        System.out.print(inicioHighLight);
-        System.out.print("\n" + fimHighLight);
-
-        System.out.println(texto);*/
+        /**
+         * String texto = jTextPane1.getText();
+         *
+         * Highlighter hilite = jTextPane1.getHighlighter();
+         * Highlighter.Highlight[] hilites = hilite.getHighlights();
+         *
+         * int i = 0; //int numCor = 0; List<Integer> inicioHighLight = new
+         * ArrayList<>(); List<Integer> fimHighLight = new ArrayList<>();
+         * List<Integer> corHighLight = new ArrayList<>(); //0 = ator 1 = user
+         * case
+         *
+         * try { while (true) { MyHighlightPainter myHighlightPainter =
+         * (MyHighlightPainter) hilites[i].getPainter(); Color c =
+         * myHighlightPainter.getColor();
+         *
+         * if (c.toString().equals(m1.getColor().toString())) {
+         * corHighLight.add(0); } else if
+         * (c.toString().equals(m2.getColor().toString())) {
+         * corHighLight.add(1); }
+         * inicioHighLight.add(hilites[i].getStartOffset());
+         * fimHighLight.add(hilites[i].getEndOffset()); i = i + 1; } } catch
+         * (Exception e) { //Nada a fazer. }
+         *
+         * File arquivo = new File("PosicaoHighLight.txt"); try (FileWriter fw =
+         * new FileWriter(arquivo)) {
+         *
+         * for (int j = 0; j < i; j++) {
+         * //System.out.println("Cor = " + corHighLight.get(j) + " Lenght = " + inicioHighLight.get(j) + " ->
+         * " + fimHighLight.get(j)); fw.write(corHighLight.get(j) + " " +
+         * inicioHighLight.get(j) + " " + fimHighLight.get(j) + "\n"); }
+         * fw.close(); } catch (IOException ex) { }
+         *
+         * File arquivo2 = new File("Texto.txt"); try (FileWriter fw2 = new
+         * FileWriter(arquivo2)) { fw2.write(texto); fw2.close(); } catch
+         * (IOException ex) { }
+         *
+         * System.out.print(inicioHighLight); System.out.print("\n" +
+         * fimHighLight);
+         *
+         * System.out.println(texto);
+         */
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        try {
-            jTextPane1.setText("");
+        resetar();
+        JFileChooser selecionador = new JFileChooser();
+        selecionador.showOpenDialog(this);
+ 
+        if((modelo = Abrir.abrir(selecionador.getSelectedFile())) != null)
+        {
+                        System.out.println(""+ modelo.getText());
 
-            try {
-                File file = new File("Texto.txt");
-                StringBuffer stringBuffer;
-                try (FileReader fileReader = new FileReader(file)) {
-                    BufferedReader bufferedReader = new BufferedReader(fileReader);
-                    stringBuffer = new StringBuffer();
-                    String line;
-                    while ((line = bufferedReader.readLine()) != null) {
-                        stringBuffer.append(line);
-                        stringBuffer.append("\n");
-                    }
-                }
-                jTextPane1.setText(stringBuffer.toString());
-                System.out.println("Contents of file:");
-                System.out.println(stringBuffer.toString());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            Scanner scanner = new Scanner(new FileReader("PosicaoHighLight.txt"));
-            while (scanner.hasNext()) {
-                try {
-                    int tipoMarcacao = scanner.nextInt();
-                    int inicio = scanner.nextInt();
-                    int fim = scanner.nextInt();
-                    if (tipoMarcacao == 0) {
-                        jTextPane1.getHighlighter().addHighlight(inicio, fim, m1);
-                    } else {
-                        jTextPane1.getHighlighter().addHighlight(inicio, fim, m2);
-                    }
-
-                    System.out.println(inicio + " " + fim + "\n");
-                } catch (Exception e) {
-
-                }
-
-            }
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(TextEditor.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "SUUUUUUUUCESSOO");
         }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "erro =(");
+        }
+//        ((MyHighlightPainter) jTextPane1.getHighlighter()).setModelo(modelo);
+        jTextPane1.setText(modelo.getText());
+        /*       
+         try {
+        
+         jTextPane1.setText("");
+
+         try {
+         File file = new File("Texto.txt");
+         StringBuffer stringBuffer;
+         try (FileReader fileReader = new FileReader(file)) {
+         BufferedReader bufferedReader = new BufferedReader(fileReader);
+         stringBuffer = new StringBuffer();
+         String line;
+         while ((line = bufferedReader.readLine()) != null) {
+         stringBuffer.append(line);
+         stringBuffer.append("\n");
+         }
+         }
+         jTextPane1.setText(stringBuffer.toString());
+         System.out.println("Contents of file:");
+         System.out.println(stringBuffer.toString());
+         } catch (IOException e) {
+         e.printStackTrace();
+         }
+
+         Scanner scanner = new Scanner(new FileReader("PosicaoHighLight.txt"));
+         while (scanner.hasNext()) {
+         try {
+         int tipoMarcacao = scanner.nextInt();
+         int inicio = scanner.nextInt();
+         int fim = scanner.nextInt();
+         if (tipoMarcacao == 0) {
+         jTextPane1.getHighlighter().addHighlight(inicio, fim, m1);
+         } else {
+         jTextPane1.getHighlighter().addHighlight(inicio, fim, m2);
+         }
+
+         System.out.println(inicio + " " + fim + "\n");
+         } catch (Exception e) {
+
+         }
+
+         }
+         } catch (FileNotFoundException ex) {
+         Logger.getLogger(TextEditor.class.getName()).log(Level.SEVERE, null, ex);
+         }
+         */
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jTree1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTree1MouseDragged
@@ -501,11 +411,8 @@ public class TextEditor extends javax.swing.JFrame {
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
@@ -522,20 +429,4 @@ public class TextEditor extends javax.swing.JFrame {
     private javax.swing.JTextPane jTextPane1;
     private javax.swing.JTree jTree1;
     // End of variables declaration//GEN-END:variables
-}
-
-class MyHighlightPainter extends DefaultHighlighter.DefaultHighlightPainter {
-
-    Color color;
-
-    public MyHighlightPainter(Color color) {
-
-        super(color);
-        this.color = color;
-    }
-
-    @Override
-    public Color getColor() {
-        return color;
-    }
 }
