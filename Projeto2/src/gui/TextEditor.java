@@ -39,6 +39,14 @@ public class TextEditor extends javax.swing.JFrame {
 
     }
 
+    private void atualizarModelo() {
+        modelo.setText(jTextPane1.getText());
+    }
+
+    private void atualizarGUI() {
+        jTextPane1.setText(modelo.getText());
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -50,34 +58,30 @@ public class TextEditor extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        gerarDiagrama = new javax.swing.JButton();
+        gerarPrototipo = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTree1 = new javax.swing.JTree();
-        jButton6 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
+        adicionarItem = new javax.swing.JButton();
+        removerItem = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenu3 = new javax.swing.JMenu();
-        jMenu4 = new javax.swing.JMenu();
+        menuAbrir = new javax.swing.JMenuItem();
+        menuSalvar = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jScrollPane1.setViewportView(jTextPane1);
 
-        jButton3.setText("Gerar Diagrama");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        gerarDiagrama.setText("Gerar Diagrama");
+        gerarDiagrama.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                gerarDiagramaActionPerformed(evt);
             }
         });
 
-        jButton4.setText("Gerar Prototipo");
+        gerarPrototipo.setText("Gerar Prototipo");
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Projeto");
         jTree1.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
@@ -88,19 +92,19 @@ public class TextEditor extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(jTree1);
 
-        jButton6.setBackground(new java.awt.Color(51, 255, 51));
-        jButton6.setText(">>");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        adicionarItem.setBackground(new java.awt.Color(51, 255, 51));
+        adicionarItem.setText(">>");
+        adicionarItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                adicionarItemActionPerformed(evt);
             }
         });
 
-        jButton8.setBackground(new java.awt.Color(255, 0, 0));
-        jButton8.setText("X");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        removerItem.setBackground(new java.awt.Color(255, 0, 0));
+        removerItem.setText("X");
+        removerItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                removerItemActionPerformed(evt);
             }
         });
 
@@ -110,38 +114,25 @@ public class TextEditor extends javax.swing.JFrame {
 
         jMenu1.setText("Arquivo");
 
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem1.setText("Abrir...");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        menuAbrir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        menuAbrir.setText("Abrir...");
+        menuAbrir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                menuAbrirActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jMenu1.add(menuAbrir);
 
-        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem2.setText("Salvar");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        menuSalvar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        menuSalvar.setText("Salvar");
+        menuSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                menuSalvarActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem2);
-
-        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem3.setText("Salvar como...");
-        jMenu1.add(jMenuItem3);
+        jMenu1.add(menuSalvar);
 
         jMenuBar1.add(jMenu1);
-
-        jMenu2.setText("Editar");
-        jMenuBar1.add(jMenu2);
-
-        jMenu3.setText("Gerar");
-        jMenuBar1.add(jMenu3);
-
-        jMenu4.setText("Ajuda");
-        jMenuBar1.add(jMenu4);
 
         setJMenuBar(jMenuBar1);
 
@@ -154,15 +145,15 @@ public class TextEditor extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jButton3)
+                        .addComponent(gerarDiagrama)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton4)))
+                        .addComponent(gerarPrototipo)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(adicionarItem, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(removerItem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
@@ -177,16 +168,16 @@ public class TextEditor extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton3)
-                            .addComponent(jButton4))
+                            .addComponent(gerarDiagrama)
+                            .addComponent(gerarPrototipo))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(89, 89, 89)
-                                .addComponent(jButton6)
+                                .addComponent(adicionarItem)
                                 .addGap(47, 47, 47)
-                                .addComponent(jButton8)
+                                .addComponent(removerItem)
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(36, 36, 36)
@@ -199,7 +190,7 @@ public class TextEditor extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void gerarDiagramaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gerarDiagramaActionPerformed
         int begin = jTextPane1.getSelectionStart();
         int end = jTextPane1.getSelectionEnd();
         Highlighter hilite = jTextPane1.getHighlighter();
@@ -234,12 +225,11 @@ public class TextEditor extends javax.swing.JFrame {
             }
 
         }
-        new ListLinker(modelo);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_gerarDiagramaActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void menuSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSalvarActionPerformed
         // TODO add your handling code here:
-        modelo.setText(jTextPane1.getText());
+        atualizarModelo();
         JFileChooser selecionador = new JFileChooser();
         selecionador.showSaveDialog(this);
         File arquivo = selecionador.getSelectedFile();
@@ -291,78 +281,27 @@ public class TextEditor extends javax.swing.JFrame {
          *
          * System.out.println(texto);
          */
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_menuSalvarActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        resetar();
+    private void menuAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAbrirActionPerformed
         JFileChooser selecionador = new JFileChooser();
         selecionador.showOpenDialog(this);
- 
-        if((modelo = Abrir.abrir(selecionador.getSelectedFile())) != null)
-        {
-                        System.out.println(""+ modelo.getText());
+
+        if ((modelo = Abrir.abrir(selecionador.getSelectedFile())) != null) {
+            System.out.println("" + modelo.getText());
 
             JOptionPane.showMessageDialog(this, "SUUUUUUUUCESSOO");
-        }
-        else
-        {
+        } else {
             JOptionPane.showMessageDialog(this, "erro =(");
         }
-//        ((MyHighlightPainter) jTextPane1.getHighlighter()).setModelo(modelo);
-        jTextPane1.setText(modelo.getText());
-        /*       
-         try {
-        
-         jTextPane1.setText("");
-
-         try {
-         File file = new File("Texto.txt");
-         StringBuffer stringBuffer;
-         try (FileReader fileReader = new FileReader(file)) {
-         BufferedReader bufferedReader = new BufferedReader(fileReader);
-         stringBuffer = new StringBuffer();
-         String line;
-         while ((line = bufferedReader.readLine()) != null) {
-         stringBuffer.append(line);
-         stringBuffer.append("\n");
-         }
-         }
-         jTextPane1.setText(stringBuffer.toString());
-         System.out.println("Contents of file:");
-         System.out.println(stringBuffer.toString());
-         } catch (IOException e) {
-         e.printStackTrace();
-         }
-
-         Scanner scanner = new Scanner(new FileReader("PosicaoHighLight.txt"));
-         while (scanner.hasNext()) {
-         try {
-         int tipoMarcacao = scanner.nextInt();
-         int inicio = scanner.nextInt();
-         int fim = scanner.nextInt();
-         if (tipoMarcacao == 0) {
-         jTextPane1.getHighlighter().addHighlight(inicio, fim, m1);
-         } else {
-         jTextPane1.getHighlighter().addHighlight(inicio, fim, m2);
-         }
-
-         System.out.println(inicio + " " + fim + "\n");
-         } catch (Exception e) {
-
-         }
-
-         }
-         } catch (FileNotFoundException ex) {
-         Logger.getLogger(TextEditor.class.getName()).log(Level.SEVERE, null, ex);
-         }
-         */
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+        atualizarGUI();
+    }//GEN-LAST:event_menuAbrirActionPerformed
 
     private void jTree1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTree1MouseDragged
 
     }//GEN-LAST:event_jTree1MouseDragged
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+    private void removerItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerItemActionPerformed
         //Remover Ator ou Caso de Uso
         try {
             DefaultTreeModel model = (DefaultTreeModel) jTree1.getModel();
@@ -377,9 +316,9 @@ public class TextEditor extends javax.swing.JFrame {
         }
 
 
-    }//GEN-LAST:event_jButton8ActionPerformed
+    }//GEN-LAST:event_removerItemActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void adicionarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionarItemActionPerformed
         //Adicionar Ator
         try {
             DefaultTreeModel model = (DefaultTreeModel) jTree1.getModel();
@@ -389,12 +328,7 @@ public class TextEditor extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Nenhum nó foi selecionado.", "Alerta", JOptionPane.WARNING_MESSAGE);
         }
-    }//GEN-LAST:event_jButton6ActionPerformed
-
-    public void resetar() {
-        jTextPane1.setText("");
-        modelo = new Modelo();
-    }
+    }//GEN-LAST:event_adicionarItemActionPerformed
 
     public void removeHighlights(JTextComponent textComp) {
         Highlighter hilite = textComp.getHighlighter();
@@ -411,22 +345,18 @@ public class TextEditor extends javax.swing.JFrame {
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton8;
+    private javax.swing.JButton adicionarItem;
+    private javax.swing.JButton gerarDiagrama;
+    private javax.swing.JButton gerarPrototipo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextPane jTextPane1;
     private javax.swing.JTree jTree1;
+    private javax.swing.JMenuItem menuAbrir;
+    private javax.swing.JMenuItem menuSalvar;
+    private javax.swing.JButton removerItem;
     // End of variables declaration//GEN-END:variables
 }

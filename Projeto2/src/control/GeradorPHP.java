@@ -33,7 +33,7 @@ public class GeradorPHP implements Gerador{
     @SuppressWarnings("null")
     public static int gerar(Modelo model, File caminho) {
         Properties p = new Properties();
-        p.setProperty("file.resource.loader.path", "/Users/Lucas/Documents/GitHub/Projeto2/Projeto2/src/templates/templatesPHP/");
+        p.setProperty("file.resource.loader.path", new File("").getAbsolutePath() + "/src/templates/templatesPHP/");
         Velocity.init(p);
 
         VelocityContext context = new VelocityContext();
