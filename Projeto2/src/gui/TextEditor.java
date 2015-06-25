@@ -24,7 +24,7 @@ import javax.swing.tree.DefaultTreeModel;
  * @author Lucas
  */
 public class TextEditor extends javax.swing.JFrame {
-
+    
     MyHighlightPainter m1 = new MyHighlightPainter(Color.green);
     MyHighlightPainter m2 = new MyHighlightPainter(Color.cyan);
     Modelo modelo;
@@ -36,15 +36,31 @@ public class TextEditor extends javax.swing.JFrame {
     public TextEditor() {
         modelo = new Modelo();
         initComponents();
-
+        
     }
-
+    
     private void atualizarModelo() {
+        modelo = new Modelo();
         modelo.setText(jTextPane1.getText());
+        DefaultTreeModel treeModel = ((DefaultTreeModel) jTree1.getModel());
+        Object parent = treeModel.getRoot();
+        // adicionar tambem os casos de uso
+        for (int i = 0; i < treeModel.getChildCount(parent); i++) {
+            modelo.addActor(new Actor(treeModel.getChild(parent, i).toString()));
+        }
     }
-
+    
     private void atualizarGUI() {
         jTextPane1.setText(modelo.getText());
+        
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Projeto");
+        jTree1.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+
+        // adicionar tambem os casos de uso
+        for (int i = 0; i < modelo.getActors().size(); i++) {
+            DefaultMutableTreeNode newNode = new DefaultMutableTreeNode(modelo.getActors().get(i).getNome());
+            treeNode1.add(newNode);
+        }
     }
 
     /**
@@ -85,11 +101,6 @@ public class TextEditor extends javax.swing.JFrame {
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Projeto");
         jTree1.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
-        jTree1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseDragged(java.awt.event.MouseEvent evt) {
-                jTree1MouseDragged(evt);
-            }
-        });
         jScrollPane2.setViewportView(jTree1);
 
         adicionarItem.setBackground(new java.awt.Color(51, 255, 51));
@@ -194,19 +205,19 @@ public class TextEditor extends javax.swing.JFrame {
         int begin = jTextPane1.getSelectionStart();
         int end = jTextPane1.getSelectionEnd();
         Highlighter hilite = jTextPane1.getHighlighter();
-
+        
         Highlighter.Highlight[] hilites = hilite.getHighlights();
-
+        
         for (int i = 0; i < hilites.length; i++) {
-
+            
             int e1 = hilites[i].getEndOffset();
             int b1 = hilites[i].getStartOffset();
-
+            
             MyHighlightPainter myHighlightPainter = (MyHighlightPainter) hilites[i].getPainter();
             Color c = myHighlightPainter.getColor();
             String sub = "";
             if (c.toString().equals(m1.getColor().toString())) {
-
+                
                 try {
                     sub = jTextPane1.getText(b1, (e1 - b1));
                     Actor ac = new Actor(sub);
@@ -214,7 +225,7 @@ public class TextEditor extends javax.swing.JFrame {
                 } catch (BadLocationException ex) {
                     Logger.getLogger(TextEditor.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
+                
             } else {
                 try {
                     sub = jTextPane1.getText(b1, (e1 - b1));
@@ -223,7 +234,7 @@ public class TextEditor extends javax.swing.JFrame {
                     Logger.getLogger(TextEditor.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-
+            
         }
     }//GEN-LAST:event_gerarDiagramaActionPerformed
 
@@ -233,7 +244,7 @@ public class TextEditor extends javax.swing.JFrame {
         JFileChooser selecionador = new JFileChooser();
         selecionador.showSaveDialog(this);
         File arquivo = selecionador.getSelectedFile();
-
+        
         if (Salvar.salvar(modelo, arquivo) == Salvar.SUCESSO) {
             JOptionPane.showMessageDialog(null, "SUCESSO");
         } else {
@@ -286,20 +297,16 @@ public class TextEditor extends javax.swing.JFrame {
     private void menuAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAbrirActionPerformed
         JFileChooser selecionador = new JFileChooser();
         selecionador.showOpenDialog(this);
-
+        
         if ((modelo = Abrir.abrir(selecionador.getSelectedFile())) != null) {
             System.out.println("" + modelo.getText());
-
+            
             JOptionPane.showMessageDialog(this, "SUUUUUUUUCESSOO");
         } else {
             JOptionPane.showMessageDialog(this, "erro =(");
         }
         atualizarGUI();
     }//GEN-LAST:event_menuAbrirActionPerformed
-
-    private void jTree1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTree1MouseDragged
-
-    }//GEN-LAST:event_jTree1MouseDragged
 
     private void removerItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerItemActionPerformed
         //Remover Ator ou Caso de Uso
@@ -314,7 +321,7 @@ public class TextEditor extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Não foi possível fazer a removeção.", "Alerta", JOptionPane.WARNING_MESSAGE);
         }
-
+        
 
     }//GEN-LAST:event_removerItemActionPerformed
 
@@ -329,7 +336,7 @@ public class TextEditor extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Nenhum nó foi selecionado.", "Alerta", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_adicionarItemActionPerformed
-
+    
     public void removeHighlights(JTextComponent textComp) {
         Highlighter hilite = textComp.getHighlighter();
         Highlighter.Highlight[] hilites = hilite.getHighlights();

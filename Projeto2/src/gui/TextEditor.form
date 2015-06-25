@@ -160,9 +160,6 @@
               <TreeModel code="Projeto&#xa;"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="mouseDragged" listener="java.awt.event.MouseMotionListener" parameters="java.awt.event.MouseEvent" handler="jTree1MouseDragged"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>
