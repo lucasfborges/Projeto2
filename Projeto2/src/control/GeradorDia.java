@@ -38,7 +38,7 @@ public class GeradorDia implements Gerador{
         Template template = null;
 
         try {
-            template = Velocity.getTemplate("templatePHP.vm");
+            template = Velocity.getTemplate("templateDIA.vm");
         } catch (ResourceNotFoundException rnfe) {
             // couldn't find the template
         } catch (ParseErrorException pee) {
