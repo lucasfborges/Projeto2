@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dia:diagram xmlns:dia="http://www.lysator.liu.se/~alla/dia/">
+  <dia:attribute name="name">
+        <dia:string>$model.getName()</dia:string>
+  </dia:attribute>
+  <dia:attribute name="Texto">
+        <dia:string>$model.getText()</dia:string>
+  </dia:attribute>    
+</dia:diagram>
