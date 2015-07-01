@@ -98,6 +98,11 @@ public class TextEditor extends javax.swing.JFrame {
         });
 
         gerarPrototipo.setText("Gerar Prototipo");
+        gerarPrototipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gerarPrototipoActionPerformed(evt);
+            }
+        });
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Projeto");
         jTree1.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
@@ -336,6 +341,13 @@ public class TextEditor extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Nenhum nó foi selecionado.", "Alerta", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_adicionarItemActionPerformed
+
+    private void gerarPrototipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gerarPrototipoActionPerformed
+        //Substituir o endereço
+        File f = new File("endereço");
+        SelecionaGerador sl = new SelecionaGerador(modelo,f);
+        sl.show();
+    }//GEN-LAST:event_gerarPrototipoActionPerformed
     
     public void removeHighlights(JTextComponent textComp) {
         Highlighter hilite = textComp.getHighlighter();
